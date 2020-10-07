@@ -48,15 +48,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.textmeshpro": {
-      "version": "2.1.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.timeline": {
       "version": "1.2.16",
       "depth": 0,
@@ -87,6 +78,16 @@
       "dependencies": {
         "com.unity.xr.legacyinputhelpers": "2.1.2",
         "com.unity.subsystemregistration": "1.0.6"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.oculus": {
+      "version": "1.4.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.xr.management": "3.0.6",
+        "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

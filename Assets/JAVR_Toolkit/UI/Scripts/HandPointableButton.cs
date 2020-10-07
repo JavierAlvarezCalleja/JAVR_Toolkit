@@ -10,54 +10,35 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider)), RequireComponent(typeof(Button))]
-public class HandPointableButton : MonoBehaviour
+public class HandPointableButton : HandPointableElement
 {
-    PointerEventData data;
-    private Button button;
-    private float pressedTime = 0.025f;
-    private bool blocked = false;
-    //[SerializeField]
-    //private Button otherGraphic;
+    PointerEventData _data;
+    private Button _button;
+    private int _pointersInside = 0;
     void Start()
     {
-        button = GetComponent<Button>();
-        data = new PointerEventData( FindObjectOfType<EventSystem>() );
+        _button = GetComponent<Button>();
+        _data = new PointerEventData( FindObjectOfType<EventSystem>() );
     }
-    public virtual void OnHandPointerClick()
+    public override void OnHandPointerClick()
     {
-        if(blocked) return;
-        
-        if(button.onClick != null)
+        if(_button.onClick != null)
         {
-            button.onClick.Invoke();
+            _button.onClick.Invoke();
         }
-        // button.OnPointerClick( data );   
-        if (!gameObject.activeInHierarchy) return;
-        StartCoroutine( PressedWait() );
     }
-    public virtual void OnHandPointerEnter()
+    public override void OnHandPointerEnter()
     {
-        if (data == null) return;
-        button.OnPointerEnter( data );
-       /* if(otherGraphic != null)
-        {
-            otherGraphic.OnPointerEnter( data );
-        }*/
+        _pointersInside++;
+        if (_pointersInside == 2) return;
+        if (_data == null) return;
+        _button.OnPointerEnter( _data );
     }
-    public virtual void OnHandPointerExit()
+    public override void OnHandPointerExit()
     {
-        if (data == null) return;
-        button.OnPointerExit( data );
-      /*  if (otherGraphic != null)
-        {
-            otherGraphic.OnPointerExit(data);
-        }*/
-    }
-    private IEnumerator PressedWait()
-    {
-        button.OnPointerDown( data );
-        yield return new WaitForSeconds(pressedTime);
-        button.OnPointerUp( data );
-        button.OnDeselect ( data );
+        _pointersInside--;
+        if (_pointersInside > 0) return;
+        if (_data == null) return;
+        _button.OnPointerExit( _data );
     }
 }

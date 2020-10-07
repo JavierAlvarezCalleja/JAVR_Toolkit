@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
+[RequireComponent(typeof(LineRenderer)), ]
 public class HandPointer : MonoBehaviour
 {
     Transform pointerDot;
@@ -111,22 +112,11 @@ public class HandPointer : MonoBehaviour
     }
     private void OnButtonPressed(InputDeviceAction action, InputFeatureUsage usage, XRNode node, float value)
     {
+        if(lastButtonHit != null)
         if(usage == (InputFeatureUsage)CommonUsages.trigger && action == InputDeviceAction.Press && node == this.node)
         {
-            Ray ray = new Ray();
-            ray.direction = transform.forward;
-            ray.origin = transform.position;
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, maxDistance, uiLayerMask, QueryTriggerInteraction.Collide))
-            {
-                HandPointableButton b = hit.collider.GetComponent<HandPointableButton>();
-
-                if (b != null)
-                {
-                    b.OnHandPointerClick();
-                    confirmSound.Play();
-                }
-            }
+            lastButtonHit.OnHandPointerClick();
+            confirmSound.Play();
         }
     }
 }
