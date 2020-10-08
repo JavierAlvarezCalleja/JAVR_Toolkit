@@ -31,7 +31,7 @@ public class InputDeviceButtonTriggers : MonoBehaviour
             if (controllerDevice.TryGetFeatureValue(CommonUsages.trigger, out triggerValue))
             {
                // Debug.Log("Trigger value: " + triggerValue);
-                if (triggerValue > 0.01f && previousTriggerValue < 0.01f)
+                if (triggerValue > 0.3f && previousTriggerValue < 0.3f)
                 {
                     InputDeviceEvents.InputDeviceButtonAction(InputDeviceAction.Press, (InputFeatureUsage)CommonUsages.trigger, controllerNode, triggerValue);
                     Debug.Log("Trigger pressed: " + controllerNode.ToString());

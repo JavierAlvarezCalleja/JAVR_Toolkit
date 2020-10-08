@@ -17,9 +17,7 @@ public class HandPointer : MonoBehaviour
     private float maxDistance = 100.0f;
     [SerializeField]
     private LayerMask globalLayerMask = new LayerMask();
-    [SerializeField]
-    private LayerMask uiLayerMask     = new LayerMask();
-    private HandPointableButton lastButtonHit;
+    private HandPointableElement lastButtonHit;
     [SerializeField]
     private XRNode node;
     [SerializeField]
@@ -59,7 +57,7 @@ public class HandPointer : MonoBehaviour
             }
             pointerDot.position = hit.point - (transform.forward * 0.01f);
             pointerDot.forward = -hit.normal.normalized;
-            HandPointableButton b = hit.collider.GetComponent<HandPointableButton>();
+            HandPointableElement b = hit.collider.GetComponent<HandPointableElement>();
 
             if(b != null)
             {
@@ -106,14 +104,11 @@ public class HandPointer : MonoBehaviour
                 lastButtonHit = null;
             }
         }
-
-        //pointerDot.forward = (  pointerDot.transform.position - Camera.main.transform.position ).normalized;
-
     }
     private void OnButtonPressed(InputDeviceAction action, InputFeatureUsage usage, XRNode node, float value)
     {
-        if(lastButtonHit != null)
-        if(usage == (InputFeatureUsage)CommonUsages.trigger && action == InputDeviceAction.Press && node == this.node)
+        if (lastButtonHit == null) return;
+        if (usage == (InputFeatureUsage)CommonUsages.trigger && action == InputDeviceAction.Press && node == this.node)
         {
             lastButtonHit.OnHandPointerClick();
             confirmSound.Play();
