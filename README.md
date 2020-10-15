@@ -5,16 +5,16 @@ This tookit offers out-of-the-box solutions for UI, interactions, user locomotio
 
 # UI Interactions
 
-##Physics-based UI pointer interactions
+## Physics-based UI pointer interactions
 It features a world space pointer that can interact with Unity's built-in UI system.
 
-#VR Locomotion
+# VR Locomotion
 
-##Parabolic-line teleport
+## Parabolic-line teleport
 It contains multiple configuration settings to fit any experience design.
 
-##Walking control
+## Walking control
 It is an FPS-like joystick-controlled walking system.
 
-#Performance Manager
+# Performance Manager
 
