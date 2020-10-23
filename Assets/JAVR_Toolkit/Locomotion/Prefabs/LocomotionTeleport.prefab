@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &306407848684572309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 306407848684572308}
+  - component: {fileID: 306407848684572311}
+  m_Layer: 0
+  m_Name: LocomotionTeleport
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &306407848684572308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306407848684572309}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &306407848684572311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306407848684572309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2fee77c13a2a5428bf6de4024221a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportableSurfaces:
+    serializedVersion: 2
+    m_Bits: 1
+  teleportPoint: {fileID: 0}
+  teleportGizmo: {fileID: 0}
+  handNode: 5
+  cameraRig: {fileID: 0}
+  headTransform: {fileID: 0}
+  highPointGizmo: {fileID: 0}
+  middlePointGizmo: {fileID: 0}
+  endPointGizmo: {fileID: 0}
+  controllerLineGizmo: {fileID: 0}
+  highLineGizmo: {fileID: 0}
+  parabolicLineGizmo: {fileID: 0}
+  parabolicLineSegments: 12
+  showDebugGizmos: 0
+  colors:
+  - {r: 0, g: 0.86782575, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  parableMaterial: {fileID: 2100000, guid: d0c02cdc610081c4f9a08676a1aaaba6, type: 2}
