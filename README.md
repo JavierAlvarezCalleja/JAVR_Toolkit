@@ -14,5 +14,5 @@ It contains multiple configuration settings to fit any experience design.
 ### Walking control
 It is an FPS-like joystick-controlled walking system.
 
-## Performance Manager
+## Performance Manager (coming soon)
 This system manages performance by trading off various render quality settings such as render scale and FFR where available.
