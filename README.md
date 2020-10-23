@@ -7,7 +7,6 @@ This tookit is a collection of utilities for VR software development in Unity fe
 It features a world space pointer that can interact with Unity's built-in UI system.
 
 ![](https://jacdeveloper.com/images/JAVR_2_opt.gif)
-<img src="https://jacdeveloper.com/images/JAVR_2_opt.gif"width="250" height="250" />
 
 ## VR Locomotion
 
