@@ -38,6 +38,18 @@ public class HandPointer : MonoBehaviour
     {
         InputDeviceEvents.OnInputDeviceButtonAction -= OnButtonPressed;
     }
+    private void OnDisable()
+    {
+        lineRenderer.enabled = false;
+        pointerDot.gameObject.SetActive(false);
+        InputDeviceEvents.OnInputDeviceButtonAction -= OnButtonPressed;
+    }
+    private void OnEnable()
+    {
+        if (pointerDot == null) return;
+        pointerDot.gameObject.SetActive(true);
+        InputDeviceEvents.OnInputDeviceButtonAction += OnButtonPressed;
+    }
     // Update is called once per frame
     void Update()
     {

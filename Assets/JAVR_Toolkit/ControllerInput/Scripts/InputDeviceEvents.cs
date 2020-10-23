@@ -1,8 +1,9 @@
 ﻿//  Javier Alvarez-Calleja
-//  SECAT Prototype 2019
+//  Javier Alvarez-Calleja
+//  JAVR Toolkit
 //  VR Input Device Events
 //
-//  SECAT engine, VR Events
+//  VR Events
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
