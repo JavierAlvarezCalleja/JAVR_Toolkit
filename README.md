@@ -1,5 +1,5 @@
 # JAVR_Toolkit V0.1
-This tookit is a collection of utilities for VR software development in Unity featuring out-of-the-box solutions for UI interactions, user locomotion and performance. 
+This tookit is a collection of utilities for VR software development designed to work with Unity's XR plug-in system. It features out-of-the-box solutions for everyday hassels like UI interactions, user locomotion and performance management. 
 
 ## Controller Input
 
