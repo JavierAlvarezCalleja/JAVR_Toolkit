@@ -13,6 +13,8 @@ It features a world space pointer that can interact with Unity's built-in UI sys
 ### Parabolic-line teleport
 It contains multiple configuration settings to fit any experience design.
 
+![](https://jacdeveloper.com/images/JAVR_3.gif)
+
 ### Walking control
 It is an FPS-like joystick-controlled walking system.
 
