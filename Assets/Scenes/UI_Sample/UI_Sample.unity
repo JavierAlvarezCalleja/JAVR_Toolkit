@@ -1364,7 +1364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c257c43ea31bcd468c4a5e21662feb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonTooHide: {fileID: 1021767419}
+  _buttonToHide: {fileID: 1021767419}
 --- !u!1 &1331062215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01187e67997a4ea4eb006796b557614d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNode: 5
+  s_controllerNode: 5
 --- !u!1 &1710339069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01187e67997a4ea4eb006796b557614d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNode: 4
+  s_controllerNode: 4
 --- !u!1001 &8003320857960355268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2124,6 +2124,11 @@ PrefabInstance:
       propertyPath: confirmSound
       value: 
       objectReference: {fileID: 691696644}
+    - target: {fileID: 8003320858384914433, guid: 80e7123a03d425a45a2ecde2e6487cbd,
+        type: 3}
+      propertyPath: node
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8003320858384914439, guid: 80e7123a03d425a45a2ecde2e6487cbd,
         type: 3}
       propertyPath: m_Name

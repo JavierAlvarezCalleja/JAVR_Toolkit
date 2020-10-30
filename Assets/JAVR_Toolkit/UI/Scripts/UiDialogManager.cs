@@ -1,5 +1,5 @@
 ﻿//  Javier Alvarez-Calleja
-//  JAVR Framework 2020
+//  JAVR Toolkit (EXAMPLE SCRIPT)
 //  VR Menu Manager
 //
 //  Manages a UI canvas to behave as a VR UI Dialog
@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using JAVR;
 public class UiDialogManager : MonoBehaviour
 {
     [SerializeField]
@@ -27,12 +28,12 @@ public class UiDialogManager : MonoBehaviour
     
     void Start()
     {
-        InputDeviceEvents.OnInputDeviceButtonAction += OnButtonPressed;
+        JAVR_ControllerInputEvents.OnInputDeviceButtonAction += OnButtonPressed;
         ShutMenu();
     }
     private void OnDestroy()
     {
-        InputDeviceEvents.OnInputDeviceButtonAction -= OnButtonPressed;
+        JAVR_ControllerInputEvents.OnInputDeviceButtonAction -= OnButtonPressed;
     }
     private void Update()
     {
@@ -50,9 +51,9 @@ public class UiDialogManager : MonoBehaviour
             }
         }
     }
-    private void OnButtonPressed(InputDeviceAction action, InputFeatureUsage usage, XRNode node, float value)
+    private void OnButtonPressed(JAVR_ControllerInputAction action, InputFeatureUsage usage, XRNode node, float value)
     {
-        if (usage == (InputFeatureUsage)CommonUsages.menuButton && action == InputDeviceAction.Press && node == XRNode.LeftHand)
+        if (usage == (InputFeatureUsage)CommonUsages.menuButton && action == JAVR_ControllerInputAction.Press && node == XRNode.LeftHand)
         {
             active = !active;
             ShutOpenMenu(active);

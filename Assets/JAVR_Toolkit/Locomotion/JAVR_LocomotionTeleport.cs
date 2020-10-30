@@ -11,65 +11,65 @@ using UnityEngine.XR;
 
 namespace JAVR
 {
-    public class LocomotionTeleport : MonoBehaviour
+    public class JAVR_LocomotionTeleport : MonoBehaviour
     {
         [SerializeField]
-        private LayerMask teleportableSurfaces;
+        private LayerMask s_teleportableSurfaces;
         [SerializeField]
-        private Transform teleportPoint;
+        private Transform s_teleportPoint;
         [SerializeField]
-        private GameObject teleportGizmo;
+        private GameObject s_teleportGizmo;
         //[SerializeField]
         //private OVRInput.Controller m_controller;
-        private InputDevice handController;
+        private InputDevice _handController;
         [SerializeField]
-        private XRNode handNode;
-        private List<Transform> waypoints;
-        private int state = 0;
+        private XRNode s_handNode;
+        private List<Transform> _waypoints;
+        private int _state = 0;
 
-        private float dashingTime = 0.0f;
-        private float dashingSpeed = 75.0f;
-        private float dashingStart = 0.0f;
+        private float _dashingTime = 0.0f;
+        private float _dashingSpeed = 75.0f;
+        private float _dashingStart = 0.0f;
 
-        private LocomotionTeleport otherTeleport;
-
-        [SerializeField]
-        private Transform cameraRig;
-        [SerializeField]
-        private Transform headTransform;
-
-        private Vector3 originalPosition;
-        private Vector3 teleportPosition;
-        private Vector3 positionOffset;
-
+        private JAVR_LocomotionTeleport otherTeleport;
 
         [SerializeField]
-        private Transform highPointGizmo;
+        private Transform s_cameraRig;
         [SerializeField]
-        private Transform middlePointGizmo;
+        private Transform s_headTransform;
+
+        private Vector3 _originalPosition;
+        private Vector3 _teleportPosition;
+        private Vector3 _positionOffset;
+
+
         [SerializeField]
-        private Transform endPointGizmo;
+        private Transform s_highPointGizmo;
         [SerializeField]
-        private LineRenderer controllerLineGizmo;
+        private Transform s_middlePointGizmo;
         [SerializeField]
-        private LineRenderer highLineGizmo;
+        private Transform s_endPointGizmo;
         [SerializeField]
-        private LineRenderer parabolicLineGizmo;
+        private LineRenderer s_controllerLineGizmo;
         [SerializeField]
-        private int parabolicLineSegments = 12;
+        private LineRenderer s_highLineGizmo;
         [SerializeField]
-        private bool showDebugGizmos = false;
+        private LineRenderer s_parabolicLineGizmo;
+        [SerializeField]
+        private int s_parabolicLineSegments = 12;
+        [SerializeField]
+        private bool s_showDebugGizmos = false;
 
         // private SnapZone previousSnapZone;
         [SerializeField]
-        private List<Color> colors;
+        private List<Color> s_colors;
         [SerializeField]
-        private Material parableMaterial;
-        private bool validContact = false;
+        private Material s_parableMaterial;
+        private bool _validContact = false;
         // Start is called before the first frame update
         void Start()
         {
-            LocomotionTeleport[] teleports = FindObjectsOfType<LocomotionTeleport>();
+            JAVR_LocomotionTeleport[] teleports = FindObjectsOfType<JAVR_LocomotionTeleport>();
 
             for (int i = 0; i < teleports.Length; i++)
             {
@@ -83,26 +83,25 @@ namespace JAVR
         // Update is called once per frame
         void Update()
         {
-            validContact = false;
-            handController = InputDevices.GetDeviceAtXRNode(handNode);
-            Vector2 stickInput; 
-            if (handController.TryGetFeatureValue(CommonUsages.primary2DAxis, out stickInput))
-            switch (state)
+            _validContact = false;
+            _handController = InputDevices.GetDeviceAtXRNode(s_handNode);
+            Vector2 stickInput = JAVR_ControllerInput.GetJoystickState(s_handNode); 
+            switch (_state)
             {
                 //Controller joystick is idle, nothing happens.
                 case 0:
 
-                    teleportGizmo.SetActive(false);
+                    s_teleportGizmo.SetActive(false);
 
 
                     if (stickInput.y > 0.5f)
                     {
 
-                        state = 1;
+                        _state = 1;
 
                           if (!otherTeleport.TeleportSwap())
                           {
-                              state = 2;
+                              _state = 2;
                           }
                     }
 
@@ -116,16 +115,16 @@ namespace JAVR
                     //ray.direction = transform.forward;
                     //ray.origin = transform.position;
                     EnableDebugGizmos(true);
-                    if (Physics.Raycast(ray, out hit, 10.0f, teleportableSurfaces))
+                    if (Physics.Raycast(ray, out hit, 10.0f, s_teleportableSurfaces))
                     {
                         if (Vector3.Dot(hit.normal, Vector3.up) >= 0.9f)
                         {
-                            validContact = true;
-                            teleportGizmo.SetActive(true);
-                            parabolicLineGizmo.enabled = true;
-                            teleportPoint.position = hit.point + (Vector3.up * 0.05f);
+                            _validContact = true;
+                            s_teleportGizmo.SetActive(true);
+                            s_parabolicLineGizmo.enabled = true;
+                            s_teleportPoint.position = hit.point + (Vector3.up * 0.05f);
                             //teleportPoint.forward = hit.normal * -1.0f;
-                            teleportPoint.eulerAngles += Vector3.forward * (Time.fixedDeltaTime) * 360.0f * 0.25f;
+                            s_teleportPoint.eulerAngles += Vector3.forward * (Time.fixedDeltaTime) * 360.0f * 0.25f;
                             DrawParable();
                            /* SnapZone sz = hit.collider.GetComponent<SnapZone>();
                             if (sz != null)
@@ -147,13 +146,13 @@ namespace JAVR
 
                             if (stickInput.y <= 0.25f)
                             {
-                                state = 3;
-                                dashingStart = Time.time;
-                                originalPosition = cameraRig.position;
-                                positionOffset = (new Vector3(headTransform.position.x, 0.0f, headTransform.position.z) - new Vector3(cameraRig.position.x, 0.0f, cameraRig.position.z));
-                                dashingTime = (originalPosition - (teleportPosition + positionOffset)).magnitude / dashingSpeed;
-                                if (dashingTime > 0.1f) dashingTime = 0.1f;
-                                dashingTime = 0.1f;
+                                _state = 3;
+                                _dashingStart = Time.time;
+                                _originalPosition = s_cameraRig.position;
+                                _positionOffset = (new Vector3(s_headTransform.position.x, 0.0f, s_headTransform.position.z) - new Vector3(s_cameraRig.position.x, 0.0f, s_cameraRig.position.z));
+                                _dashingTime = (_originalPosition - (_teleportPosition + _positionOffset)).magnitude / _dashingSpeed;
+                                if (_dashingTime > 0.1f) _dashingTime = 0.1f;
+                                _dashingTime = 0.1f;
                                 EnableDebugGizmos(false);
                                 /*if (sz != null)
                                 {
@@ -163,13 +162,13 @@ namespace JAVR
                                 {
                                     teleportPosition = hit.point;
                                 }*/
-                                teleportPosition = hit.point;
+                                _teleportPosition = hit.point;
                                 break;
                             }
                         }
                         else
                         {
-                            teleportGizmo.SetActive(false);
+                            s_teleportGizmo.SetActive(false);
                             DrawParable();
                             // parabolicLineGizmo.enabled = false;
                             //  
@@ -177,50 +176,50 @@ namespace JAVR
                     }
                     else
                     {
-                        teleportGizmo.SetActive(false);
+                        s_teleportGizmo.SetActive(false);
                         DrawParable();
                         //   parabolicLineGizmo.enabled = false;
                     }
                     if (stickInput.y <= 0.25f)
                     {
                         EnableDebugGizmos(false);
-                        state = 0;
+                        _state = 0;
                     }
                     break;
                 //if the other teleporter gets activated we waut till joystick is reset.
                 case 2:
 
-                    teleportGizmo.SetActive(false);
+                    s_teleportGizmo.SetActive(false);
                     EnableDebugGizmos(false);
                     if (stickInput.y <= 0.25f)
                     {
-                        state = 0;
+                        _state = 0;
                     }
 
                     break;
                 //Dashing the camera rig
                 case 3:
 
-                    teleportGizmo.SetActive(false);
+                    s_teleportGizmo.SetActive(false);
                     EnableDebugGizmos(false);
-                    if (Time.time - dashingStart <= dashingTime)
+                    if (Time.time - _dashingStart <= _dashingTime)
                     {
 
-                        cameraRig.position = Vector3.Lerp(originalPosition, teleportPosition - positionOffset, (Time.time - dashingStart) / dashingTime);
+                        s_cameraRig.position = Vector3.Lerp(_originalPosition, _teleportPosition - _positionOffset, (Time.time - _dashingStart) / _dashingTime);
                     }
                     else
                     {
-                        cameraRig.position = teleportPosition - positionOffset;
-                        state = 0;
+                        s_cameraRig.position = _teleportPosition - _positionOffset;
+                        _state = 0;
                     }
                     break;
             }
         }
         public bool TeleportSwap()
         {
-            if (state != 3)
+            if (_state != 3)
             {
-                state = 2;
+                _state = 2;
                 return true;
             }
             else
@@ -230,12 +229,12 @@ namespace JAVR
         }
         private void EnableDebugGizmos(bool b)
         {
-            highPointGizmo.gameObject.SetActive(b && showDebugGizmos);
-            middlePointGizmo.gameObject.SetActive(b && showDebugGizmos);
-            endPointGizmo.gameObject.SetActive(b && showDebugGizmos);
-            highLineGizmo.gameObject.SetActive(b && showDebugGizmos);
-            controllerLineGizmo.gameObject.SetActive(b && showDebugGizmos);
-            parabolicLineGizmo.gameObject.SetActive(b);
+            s_highPointGizmo.gameObject.SetActive(b && s_showDebugGizmos);
+            s_middlePointGizmo.gameObject.SetActive(b && s_showDebugGizmos);
+            s_endPointGizmo.gameObject.SetActive(b && s_showDebugGizmos);
+            s_highLineGizmo.gameObject.SetActive(b && s_showDebugGizmos);
+            s_controllerLineGizmo.gameObject.SetActive(b && s_showDebugGizmos);
+            s_parabolicLineGizmo.gameObject.SetActive(b);
 
         }
         private Ray CalculateParabolicRay()
@@ -257,22 +256,22 @@ namespace JAVR
 
             Vector3 middlePoint = (Vector3.up * 0.25f) + transform.position + (frontVector * distance);
             //float height = middlePoint.y - cameraRig.position.y; 
-            Vector3 highPoint = new Vector3(headTransform.position.x, headTransform.position.y + 2.0f, headTransform.position.z);
+            Vector3 highPoint = new Vector3(s_headTransform.position.x, s_headTransform.position.y + 2.0f, s_headTransform.position.z);
             Vector3 direction = (middlePoint - highPoint).normalized;
 
             ray.direction = direction;
             ray.origin = middlePoint - (direction * 2.0f);
 
             //Debug gizmos
-            highPointGizmo.position = highPoint;
-            middlePointGizmo.position = middlePoint;
-            endPointGizmo.position = middlePoint + (direction * 2.0f);
+            s_highPointGizmo.position = highPoint;
+            s_middlePointGizmo.position = middlePoint;
+            s_endPointGizmo.position = middlePoint + (direction * 2.0f);
 
-            highLineGizmo.SetPosition(0, highPoint);
-            highLineGizmo.SetPosition(1, highPoint + (direction * 20.0f));
+            s_highLineGizmo.SetPosition(0, highPoint);
+            s_highLineGizmo.SetPosition(1, highPoint + (direction * 20.0f));
 
-            controllerLineGizmo.SetPosition(0, transform.position);
-            controllerLineGizmo.SetPosition(1, middlePoint);
+            s_controllerLineGizmo.SetPosition(0, transform.position);
+            s_controllerLineGizmo.SetPosition(1, middlePoint);
 
 
 
@@ -280,43 +279,43 @@ namespace JAVR
         }
         private void DrawParable()
         {
-            Vector3 end = validContact ? teleportGizmo.transform.position : endPointGizmo.position;
-            Vector3 controllerToMiddlePoint = /*transform.position -*/ middlePointGizmo.position - transform.position;
-            Vector3 middlePointToEnd = end - middlePointGizmo.position;
+            Vector3 end = _validContact ? s_teleportGizmo.transform.position : s_endPointGizmo.position;
+            Vector3 controllerToMiddlePoint = /*transform.position -*/ s_middlePointGizmo.position - transform.position;
+            Vector3 middlePointToEnd = end - s_middlePointGizmo.position;
             Vector3 parableSection = Vector3.one;
-            parabolicLineGizmo.positionCount = parabolicLineSegments + 1;
-            parabolicLineGizmo.SetPosition(0, transform.position);
+            s_parabolicLineGizmo.positionCount = s_parabolicLineSegments + 1;
+            s_parabolicLineGizmo.SetPosition(0, transform.position);
             // parableMaterial.SetColor("_Color", colors[validContact ? 0 : 1]);
             //  parabolicLineGizmo.material.SetColor("_Color", colors[validContact ? 0 : 1]);
-            parabolicLineGizmo.startColor = colors[validContact ? 0 : 1];
-            parabolicLineGizmo.endColor = colors[validContact ? 0 : 1];
+            s_parabolicLineGizmo.startColor = s_colors[_validContact ? 0 : 1];
+            s_parabolicLineGizmo.endColor = s_colors[_validContact ? 0 : 1];
             //   Debug.Log("Teloeport valid contact: " + validContact);
             //Calculate parabolic Points.
-            for (int i = 1; i < parabolicLineSegments; i++)
+            for (int i = 1; i < s_parabolicLineSegments; i++)
             {
                 //Debug.Log("1");
-                float f = ((float)i / (float)parabolicLineSegments);
+                float f = ((float)i / (float)s_parabolicLineSegments);
                 //Debug.Log("2");
-                parableSection = (middlePointGizmo.position + (middlePointToEnd * f)) - (transform.position + (controllerToMiddlePoint * f));
+                parableSection = (s_middlePointGizmo.position + (middlePointToEnd * f)) - (transform.position + (controllerToMiddlePoint * f));
                 //Debug.Log("3");
                 Vector3 parablePoint = (transform.position + (controllerToMiddlePoint * f)) + (parableSection * f);
                 //Debug.Log("4");
-                parabolicLineGizmo.SetPosition(i, parablePoint);
+                s_parabolicLineGizmo.SetPosition(i, parablePoint);
             }
             //Debug.Log("5");
-            parabolicLineGizmo.SetPosition(parabolicLineSegments, end);
+            s_parabolicLineGizmo.SetPosition(s_parabolicLineSegments, end);
         }
         public void Activate(bool b = true)
         {
             if (b)
             {
-                state = 0;
+                _state = 0;
             }
             else
             {
                 EnableDebugGizmos(false);
-                teleportGizmo.SetActive(false);
-                state = 100;
+                s_teleportGizmo.SetActive(false);
+                _state = 100;
             }
         }
     }
