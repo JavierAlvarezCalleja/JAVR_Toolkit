@@ -14,9 +14,9 @@ Allows for transparent usage with the new [OpenXR Unity XR plug-in](https://gith
 It features a world space pointer that can interact with Unity's built-in UI system.
 
 UI COMPATIBLE ELEMENTS:
-*Buttons
-*Sliders(support coming soon)
-*Checkboxes(support coming soon)
+* Buttons
+* Sliders(support coming soon)
+* Checkboxes(support coming soon)
 
 ![](https://jacdeveloper.com/images/JAVR_2_opt.gif)
 
