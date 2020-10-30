@@ -7,7 +7,7 @@ Provides access to the state of all buttons on a VR device's controller and also
 
 ### Steam VR Input Support
 
-Allows for transparent usage with the new [OpenXR Unity XR plug-in](https://github.com/ValveSoftware/unity-xr-plugin) and [Steam VR Unity plug-in](https://github.com/ValveSoftware/steamvr_unity_plugin/releases/tag/2.6.0b4Integration)
+Allows for transparent usage with the new [OpenXR Unity XR plug-in](https://github.com/ValveSoftware/unity-xr-plugin) and [Steam VR Unity plug-in](https://github.com/ValveSoftware/steamvr_unity_plugin/releases/tag/2.6.0b4Integration).
 
 ## UI Interactions
 ### Physics-based UI pointer interactions
