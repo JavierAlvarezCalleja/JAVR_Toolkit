@@ -27,7 +27,7 @@ It contains multiple configuration settings to fit any experience design.
 
 ![](https://jacdeveloper.com/images/JAVR_3.gif)
 
-### Walking control (feature coming soon)
+### Walking control
 It is an FPS-like joystick-controlled walking system.
 
 ## Performance Manager (feaature coming soon)
